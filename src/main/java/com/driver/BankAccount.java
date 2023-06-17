@@ -1,38 +1,45 @@
 package com.driver;
 
+import java.util.Random;
+
 public class BankAccount {
     private String name;
     private double balance;
     private double minBalance;
 
-//    private boolean isAccountNumberGenerated;
+
+
 
     public BankAccount(String name, double balance, double minBalance) {
         this.name = name;
         this.balance = balance;
         this.minBalance = minBalance;
 
-//        this.isAccountNumberGenerated = false;
     }
 
     public String generateAccountNumber(int digits, int sum) throws Exception{
         //Each digit of an account number can lie between 0 and 9 (both inclusive)
         //Generate account number having given number of 'digits' such that the sum of digits is equal to 'sum'
         //If it is not possible, throw "Account Number can not be generated" exception
-         int temp = digits;
-         int digitSum = 0;
-         while(temp > 0){
-             int digit = temp%10;
-             digitSum += digit;
-             temp = temp/10;
-         }
 
-         if(digitSum == sum){
-//             this.isAccountNumberGenerated = true;
-             return Integer.toString(digits);
-         } else {
-             throw new RuntimeException("Account Number can not be generated");
-         }
+        if (digits <= 0) {
+            throw new Exception("Account Number can not be generated");
+        }
+
+        if (sum < 0 || sum > digits * 9) {
+            throw new Exception("Account Number can not be generated");
+        }
+
+        StringBuilder accountNumber = new StringBuilder();
+
+        for (int i = 0; i < digits; i++) {
+            int digit = Math.min(9, sum);
+            accountNumber.append(digit);
+            sum -= digit;
+        }
+
+        return accountNumber.toString();
+
     }
 
     public void deposit(double amount) {
@@ -47,7 +54,6 @@ public class BankAccount {
             throw new RuntimeException("Insufficient Balance");
         }else if (amount < this.balance ){
             this.balance -= amount;
-            System.out.println(this.balance);
         }
         if(this.balance < this.minBalance){
             throw new RuntimeException("Insufficient Balance");

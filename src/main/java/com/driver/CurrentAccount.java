@@ -14,7 +14,6 @@ public class CurrentAccount extends BankAccount{
 
 
     public void validateLicenseId() throws Exception {
-
         // Check if the license ID is already valid
         boolean isValid = true;
         for (int i = 0; i < tradeLicenseId.length() - 1; i++) {
@@ -23,7 +22,6 @@ public class CurrentAccount extends BankAccount{
                 break;
             }
         }
-
         if (!isValid) {
             // Try rearranging the characters to create a valid license ID
             char[] chars = tradeLicenseId.toCharArray();
@@ -69,7 +67,5 @@ public class CurrentAccount extends BankAccount{
         return tradeLicenseId;
     }
 
-    public void setTradeLicenseId(String tradeLicenseId) {
-        this.tradeLicenseId = tradeLicenseId;
-    }
+
 }
